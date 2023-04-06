@@ -8,10 +8,19 @@
     android:layout_marginTop="16dp"
     android:layout_marginStart="16dp">
 
-    <de.hdodenhof.circleimageview.CircleImageView
+   <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:src="@drawable/ic_google" />
+        android:src="@drawable/logo"
+        android:id="@+id/userimage"/>
+
+
+    <!--<ImageView
+        android:id="@+id/userimage"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:scaleType="centerCrop"
+        android:visibility="visible"/>-->
 
     <TextView
         android:id="@+id/username"

@@ -3,13 +3,13 @@ package com.example.car.UserActivities
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.appcompat.app.AppCompatActivity
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.example.car.Api.RetrofitClient
 import com.example.car.MainActivity
 import com.example.car.Models.UserResponse
@@ -34,7 +34,8 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-       forgotpassword = findViewById(R.id.forgotpassword)
+        supportActionBar?.hide()
+        forgotpassword = findViewById(R.id.forgotpassword)
         usernameinput = findViewById(R.id.username)
         passwordinput = findViewById(R.id.password)
         btn_login = findViewById(R.id.loginbutton)
@@ -51,11 +52,14 @@ class LoginActivity : AppCompatActivity() {
             sp.edit().putBoolean("logged",true).apply();
         }
 
+        forgotpassword.setOnClickListener {
+            val intent = Intent(this, ForgotPassword1Activity::class.java)
+            startActivity(intent)
+        }
+
         textView_register.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
-           // Toast.makeText(this, "Welcome", Toast.LENGTH_SHORT).show()
-
         }
     }
 
@@ -95,26 +99,50 @@ class LoginActivity : AppCompatActivity() {
                             val token = response.body()?.token
                             saveToken(token)
                             startActivity(intentProfile)
-                            Toast.makeText(applicationContext, "new user", Toast.LENGTH_LONG).show()
+                            //Toast.makeText(applicationContext, "new user", Toast.LENGTH_LONG).show()
                         }
                         else if(response.code()==403)
                         {
                             Toast.makeText(applicationContext, "user not exists", Toast.LENGTH_LONG).show()
+                            SweetAlertDialog(this@LoginActivity, SweetAlertDialog.WARNING_TYPE)
+                                .setTitleText("User Does Not E  xists")
+                                //.setContentText("Check Your Mail For The Verification Mail")
+                                .setConfirmText("OK")
+                                .setConfirmClickListener { sDialog -> sDialog.dismissWithAnimation() }
+                                .show()
 
                         }
                         else if(response.code()==404)
                         {
-                            Toast.makeText(applicationContext, "user desactivated", Toast.LENGTH_LONG).show()
+                            //Toast.makeText(applicationContext, "user desactivated", Toast.LENGTH_LONG).show()
+                            SweetAlertDialog(this@LoginActivity, SweetAlertDialog.WARNING_TYPE)
+                                .setTitleText("Wrong Desactivated")
+                                //.setContentText("Check Your Mail For The Verification Mail")
+                                .setConfirmText("OK")
+                                .setConfirmClickListener { sDialog -> sDialog.dismissWithAnimation() }
+                                .show()
 
                         }
                         else if(response.code()==402)
                         {
-                            Toast.makeText(applicationContext, "wrong password", Toast.LENGTH_LONG).show()
+                            //Toast.makeText(applicationContext, "wrong password", Toast.LENGTH_LONG).show()
+                            SweetAlertDialog(this@LoginActivity, SweetAlertDialog.WARNING_TYPE)
+                                .setTitleText("Wrong Password")
+                                //.setContentText("Check Your Mail For The Verification Mail")
+                                .setConfirmText("OK")
+                                .setConfirmClickListener { sDialog -> sDialog.dismissWithAnimation() }
+                                .show()
 
                         }
                         else if(response.code()==401)
                         {
-                            Toast.makeText(applicationContext, "not verified", Toast.LENGTH_LONG).show()
+                            //Toast.makeText(applicationContext, "not verified", Toast.LENGTH_LONG).show()
+                            SweetAlertDialog(this@LoginActivity, SweetAlertDialog.WARNING_TYPE)
+                                .setTitleText("User Not Verified")
+                                .setContentText("Check Your Mail For The Verification Mail")
+                                .setConfirmText("OK")
+                                .setConfirmClickListener { sDialog -> sDialog.dismissWithAnimation() }
+                                .show()
 
                         }
                     }

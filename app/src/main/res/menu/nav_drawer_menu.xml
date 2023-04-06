@@ -26,6 +26,17 @@
                 <item
                     android:title="@string/Logout"
                     android:id="@+id/logoutbtn"
+                    android:icon="@drawable/ic_lock_person"/>
+            </group>
+        </menu>
+    </item>
+
+    <item android:title="Desactivate">
+        <menu>
+            <group>
+                <item
+                    android:title="Desactivate"
+                    android:id="@+id/desactivatebtn"
                     android:icon="@drawable/ic_baseline_logout_24"/>
             </group>
         </menu>

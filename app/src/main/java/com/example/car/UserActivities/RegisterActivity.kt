@@ -1,18 +1,20 @@
 package com.example.car.UserActivities
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.example.car.Api.RetrofitClient
 import com.example.car.Models.UserResponse
 import com.example.car.R
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
 
 class RegisterActivity : AppCompatActivity() {
     lateinit var logintextview : TextView
@@ -63,20 +65,24 @@ class RegisterActivity : AppCompatActivity() {
             roleinput.error = "Role Required"
         }
         else {
-            RetrofitClient.instance.Register(username,password,email,role)
+            RetrofitClient.instance.Register(username,password,email,role, image = "@drawable/ic_google")
                 .enqueue(object: Callback<UserResponse>{
                     override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
                         if(response.code() == 200)
                         {
                             startActivity(intentlogin)
-                            Toast.makeText(applicationContext, "new user", Toast.LENGTH_LONG).show()
-                        }
+                            /*SweetAlertDialog(this@RegisterActivity, SweetAlertDialog.SUCCESS_TYPE)
+                                .setTitleText("Welcome To CarNote")
+                                .show();  */                      }
                         else if(response.code()==403)
-                            Toast.makeText(applicationContext, "user exists", Toast.LENGTH_LONG).show()
-                        //print(response.sta)
+                            //Toast.makeText(applicationContext, "user exists", Toast.LENGTH_LONG).show()
 
-                        //Toast.makeText(applicationContext, response.code(), Toast.LENGTH_LONG).show()
-                        //startActivity(intent)
+                            SweetAlertDialog(this@RegisterActivity, SweetAlertDialog.WARNING_TYPE)
+                                .setTitleText("User Exists Already !")
+                                .setContentText("Another User Is Already Using This Username")
+                                .setConfirmText("OK!")
+                                .setConfirmClickListener { sDialog -> sDialog.dismissWithAnimation() }
+                                .show()
                     }
 
                     override fun onFailure(call: Call<UserResponse>, t: Throwable) {
