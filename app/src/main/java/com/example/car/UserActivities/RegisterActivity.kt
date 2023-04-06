@@ -3,15 +3,16 @@ package com.example.car.UserActivities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Patterns
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import com.example.car.Api.RetrofitClient
+import com.example.car.Models.UserResponse
 import com.example.car.R
-import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
-import java.util.regex.Pattern
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class RegisterActivity : AppCompatActivity() {
     lateinit var logintextview : TextView
@@ -42,6 +43,7 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun checkcredentials() {
+        val intentlogin = Intent(this, LoginActivity::class.java)
         val username = usernameinput.text.toString().trim()
         val email = emailinput.text.toString().trim()
         val password = passwordinput.text.toString().trim()
@@ -61,7 +63,27 @@ class RegisterActivity : AppCompatActivity() {
             roleinput.error = "Role Required"
         }
         else {
-            Toast.makeText(this, "Welcome", Toast.LENGTH_SHORT).show()
+            RetrofitClient.instance.Register(username,password,email,role)
+                .enqueue(object: Callback<UserResponse>{
+                    override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
+                        if(response.code() == 200)
+                        {
+                            startActivity(intentlogin)
+                            Toast.makeText(applicationContext, "new user", Toast.LENGTH_LONG).show()
+                        }
+                        else if(response.code()==403)
+                            Toast.makeText(applicationContext, "user exists", Toast.LENGTH_LONG).show()
+                        //print(response.sta)
+
+                        //Toast.makeText(applicationContext, response.code(), Toast.LENGTH_LONG).show()
+                        //startActivity(intent)
+                    }
+
+                    override fun onFailure(call: Call<UserResponse>, t: Throwable) {
+                        Toast.makeText(applicationContext, t.message , Toast.LENGTH_LONG).show()
+                    }
+
+                })
         }
 
     }

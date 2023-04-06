@@ -1,6 +1,7 @@
 package com.example.car
 
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
@@ -11,6 +12,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.example.car.Cars.CarsFragment
 import com.example.car.Shop.ShopFragment
+import com.example.car.UserActivities.LoginActivity
 import com.example.car.UserActivities.ProfileFragment
 import com.example.car.UserActivities.RegisterActivity
 import com.google.android.material.navigation.NavigationView
@@ -21,6 +23,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var drawerLayout : DrawerLayout
     lateinit var navview : NavigationView
     lateinit var textView_register: TextView
+    lateinit var sp: SharedPreferences
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,6 +33,7 @@ class MainActivity : AppCompatActivity() {
        // textView_register = findViewById(R.id.Actibity)
         drawerLayout = findViewById(R.id.drawerLayout)
         navview = findViewById(R.id.navview)
+        sp = getSharedPreferences("login",MODE_PRIVATE);
 
 
         toggle = ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close )
@@ -42,6 +47,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.profile -> replaceFragment(ProfileFragment(), it.title.toString())
                 R.id.cars -> replaceFragment(CarsFragment(), it.title.toString())
                 R.id.shop -> replaceFragment(ShopFragment(), it.title.toString())
+                R.id.logoutbtn -> logout()
             }
             true
         }
@@ -62,5 +68,11 @@ class MainActivity : AppCompatActivity() {
             return true
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun logout() {
+        sp.edit().putBoolean("logged",false).apply();
+        intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
     }
 }

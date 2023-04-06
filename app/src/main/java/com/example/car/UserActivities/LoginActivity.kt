@@ -1,14 +1,23 @@
 package com.example.car.UserActivities
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
+import com.example.car.Api.RetrofitClient
 import com.example.car.MainActivity
+import com.example.car.Models.UserResponse
 import com.example.car.R
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+
 
 class LoginActivity : AppCompatActivity() {
     lateinit var forgotpassword : TextView
@@ -16,6 +25,9 @@ class LoginActivity : AppCompatActivity() {
     lateinit var passwordinput : EditText
     lateinit var btn_login: Button
     lateinit var textView_register: TextView
+    lateinit var sp: SharedPreferences
+    lateinit var usertoken: SharedPreferences
+
 
 
 
@@ -27,21 +39,42 @@ class LoginActivity : AppCompatActivity() {
         passwordinput = findViewById(R.id.password)
         btn_login = findViewById(R.id.loginbutton)
         textView_register = findViewById(R.id.registerbtn)
+        sp = getSharedPreferences("login",MODE_PRIVATE);
+
+        if(sp.getBoolean("logged",false)){
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
 
         btn_login.setOnClickListener {
             checkcredentials();
+            sp.edit().putBoolean("logged",true).apply();
         }
 
         textView_register.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
-            Toast.makeText(this, "Welcome", Toast.LENGTH_SHORT).show()
+           // Toast.makeText(this, "Welcome", Toast.LENGTH_SHORT).show()
 
         }
     }
 
 
+    fun saveToken(token: String?) {
+        val sharedPreferences = getSharedPreferences("myPrefs", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString("token", token)
+        editor.apply()
+    }
+
+    fun getSavedToken(): String? {
+        val sharedPreferences = getSharedPreferences("myPrefs", Context.MODE_PRIVATE)
+        return sharedPreferences.getString("token", null)
+    }
+
+
     private fun checkcredentials() {
+        val intentProfile = Intent(this, MainActivity::class.java)
         val username = usernameinput.text.toString().trim()
         val password = passwordinput.text.toString().trim()
 
@@ -54,9 +87,44 @@ class LoginActivity : AppCompatActivity() {
         }
 
         else {
-            Toast.makeText(this, "Welcome", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+            RetrofitClient.instance.Login(username,password)
+                .enqueue(object: Callback<UserResponse> {
+                    override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
+                        if(response.code() == 200)
+                        {
+                            val token = response.body()?.token
+                            saveToken(token)
+                            startActivity(intentProfile)
+                            Toast.makeText(applicationContext, "new user", Toast.LENGTH_LONG).show()
+                        }
+                        else if(response.code()==403)
+                        {
+                            Toast.makeText(applicationContext, "user not exists", Toast.LENGTH_LONG).show()
+
+                        }
+                        else if(response.code()==404)
+                        {
+                            Toast.makeText(applicationContext, "user desactivated", Toast.LENGTH_LONG).show()
+
+                        }
+                        else if(response.code()==402)
+                        {
+                            Toast.makeText(applicationContext, "wrong password", Toast.LENGTH_LONG).show()
+
+                        }
+                        else if(response.code()==401)
+                        {
+                            Toast.makeText(applicationContext, "not verified", Toast.LENGTH_LONG).show()
+
+                        }
+                    }
+
+                    override fun onFailure(call: Call<UserResponse>, t: Throwable) {
+                        Toast.makeText(applicationContext, t.message , Toast.LENGTH_LONG).show()
+                    }
+
+                })
+
         }
 
     }
