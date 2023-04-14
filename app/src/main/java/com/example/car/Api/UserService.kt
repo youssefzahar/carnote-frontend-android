@@ -12,7 +12,7 @@ interface UserService {
         @Field("username") username:String,
         @Field("password") password:String,
         @Field("email") email:String,
-        @Field("role") role:String,
+       // @Field("role") role:String,
         @Field("image") image:String,
     ):Call<UserResponse>
 

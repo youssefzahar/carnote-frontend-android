@@ -59,11 +59,9 @@ class ProfileFragment : Fragment() {
                 override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
                     if (response.isSuccessful) {
                         val user = response.body()?.user
-                       // binding.tvUsername.text = user?.username
-                        //binding.tvEmail.text = user?.email
                         binding.username.text = user?.username
                         binding.email.text = user?.email
-                        Glide.with(requireContext()).load(user?.userimage).placeholder(R.drawable.ic_person).into(binding.userimage)
+                      //  Glide.with(requireContext()).load(user?.userimage).placeholder(R.drawable.ic_person).into(binding.userimage)
                     } else {
                         Toast.makeText(requireContext(), "Unable to get user info", Toast.LENGTH_SHORT).show()
                     }

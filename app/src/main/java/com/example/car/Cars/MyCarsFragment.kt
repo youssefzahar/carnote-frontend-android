@@ -1,21 +1,22 @@
 package com.example.car.Cars
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.car.Api.CarService
-import com.example.car.Api.RetrofitClient
 import com.example.car.Models.CarAdapter
 import com.example.car.Models.CarResponse
 import com.example.car.R
-import com.example.car.databinding.FragmentCarsBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -23,17 +24,22 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 
-class CarsFragment : Fragment() {
+class MyCarsFragment : Fragment() {
+
     private lateinit var rvCars: RecyclerView
     private lateinit var carAdapter: CarAdapter
+    private lateinit var sharedPreferences: SharedPreferences
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_cars, container, false)
         rvCars = view.findViewById(R.id.carsforsale_recycler_view)
-        rvCars.layoutManager = LinearLayoutManager(requireContext())
+        //rvCars.layoutManager = LinearLayoutManager(requireContext())
+        rvCars.layoutManager = GridLayoutManager(requireContext(),2)
         carAdapter = CarAdapter(listOf()) // create an empty adapter
         rvCars.adapter = carAdapter
         val add_car_btn = view.findViewById<Button>(R.id.add_car_button)
@@ -43,6 +49,8 @@ class CarsFragment : Fragment() {
         }
         return view
     }
+
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -54,7 +62,10 @@ class CarsFragment : Fragment() {
             .build()
             .create(CarService::class.java)
 
-        service.getAllCars().enqueue(object : Callback<CarResponse> {
+        sharedPreferences = requireActivity().getSharedPreferences("myPrefs", Context.MODE_PRIVATE)
+        val token = sharedPreferences.getString("token", null)
+
+        service.UserCars("Bearer $token").enqueue(object : Callback<CarResponse> {
             override fun onResponse(call: Call<CarResponse>, response: Response<CarResponse>) {
                 if (response.isSuccessful) {
                     val cars = response.body()?.cars

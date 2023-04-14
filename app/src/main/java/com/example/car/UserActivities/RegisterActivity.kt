@@ -31,7 +31,7 @@ class RegisterActivity : AppCompatActivity() {
         usernameinput = findViewById(R.id.username)
         emailinput = findViewById(R.id.email)
         passwordinput = findViewById(R.id.password)
-        roleinput = findViewById(R.id.role)
+      //  roleinput = findViewById(R.id.role)
         btnregister = findViewById(R.id.registerbutton)
 
         btnregister.setOnClickListener{
@@ -49,7 +49,7 @@ class RegisterActivity : AppCompatActivity() {
         val username = usernameinput.text.toString().trim()
         val email = emailinput.text.toString().trim()
         val password = passwordinput.text.toString().trim()
-        val role = roleinput.text.toString().trim()
+      //  val role = roleinput.text.toString().trim()
 
         if(username.isEmpty()){
             usernameinput.error = "Username Required"
@@ -61,11 +61,11 @@ class RegisterActivity : AppCompatActivity() {
         if(password.isEmpty()) {
             passwordinput.error = "Password Required"
         }
-        if(role.isEmpty()) {
+      /*  if(role.isEmpty()) {
             roleinput.error = "Role Required"
-        }
+        }*/
         else {
-            RetrofitClient.instance.Register(username,password,email,role, image = "@drawable/ic_google")
+            RetrofitClient.instance.Register(username,password,email, image = "@drawable/ic_google")
                 .enqueue(object: Callback<UserResponse>{
                     override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
                         if(response.code() == 200)

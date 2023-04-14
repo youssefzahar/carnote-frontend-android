@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.car.Api.RetrofitClient
 import com.example.car.Cars.CarsFragment
+import com.example.car.Cars.MyCarsFragment
 import com.example.car.Models.UserResponse
 import com.example.car.Shop.ShopFragment
 import com.example.car.UserActivities.LoginActivity
@@ -57,7 +58,8 @@ class MainActivity : AppCompatActivity() {
                 R.id.cars -> replaceFragment(CarsFragment(), it.title.toString())
                 R.id.shop -> replaceFragment(ShopFragment(), it.title.toString())
                 R.id.logoutbtn -> logout()
-                R.id.desactivatebtn -> DesactivateUser()
+                R.id.userCers -> replaceFragment(MyCarsFragment(), it.title.toString())
+               // R.id.desactivatebtn -> DesactivateUser()
             }
             true
         }
@@ -129,13 +131,13 @@ class MainActivity : AppCompatActivity() {
                     val headerView = navview.getHeaderView(0)
                     val usernameTextView = headerView.findViewById<TextView>(R.id.username)
                     val emailTextView = headerView.findViewById<TextView>(R.id.email)
-                    val userImageView = headerView.findViewById<ImageView>(R.id.userimage)
+                  //  val userImageView = headerView.findViewById<ImageView>(R.id.userimage)
 
                     usernameTextView.text = user?.username
                     emailTextView.text = user?.email
                     println("userImageView")
-                    println(userImageView)
-                    Glide.with(this@MainActivity).load(user?.userimage).placeholder(R.drawable.ic_google).into(userImageView)
+                    //println(userImageView)
+                  //  Glide.with(this@MainActivity).load(user?.userimage).placeholder(R.drawable.ic_google).into(userImageView)
                    // _status.value = "   First Mars image URL : ${_photos.value!!.imgSrcUrl}"
                     println(user?.userimage)
                 }

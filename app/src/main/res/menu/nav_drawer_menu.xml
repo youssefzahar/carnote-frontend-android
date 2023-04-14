@@ -18,6 +18,11 @@
                     android:icon="@drawable/ic_shopping_cart"
                     android:title="@string/Shop"/>
 
+                <item
+                    android:id="@+id/userCers"
+                    android:icon="@drawable/car_icon"
+                    android:title="My Cars"/>
+
             </group>
 
     <item android:title="@string/Logout">
@@ -30,7 +35,7 @@
             </group>
         </menu>
     </item>
-
+<!--
     <item android:title="Desactivate">
         <menu>
             <group>
@@ -40,6 +45,6 @@
                     android:icon="@drawable/ic_baseline_logout_24"/>
             </group>
         </menu>
-    </item>
+    </item> -->
 
 </menu>

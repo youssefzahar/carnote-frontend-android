@@ -31,28 +31,15 @@ object RetrofitClient {
             .build()
         retrofit.create(UserService::class.java)
     }
-/*
-    private val client = OkHttpClient.Builder().build()
 
-    private val retrofit = Retrofit.Builder()
-        .baseUrl(URL) // change this IP for testing by your actual machine IP
-        .addConverterFactory(GsonConverterFactory.create())
-        .client(client)
-        .build()
-
-    fun<T> buildService(service: Class<T>): T{
-        return retrofit.create(service)
-    }*/
-/*
-    private val retrofit by lazy {
-        Retrofit.Builder()
+    val carinstace: CarService by lazy {
+        val retrofit = Retrofit.Builder()
             .baseUrl(URL)
             .addConverterFactory(GsonConverterFactory.create())
+            .client(okHttpClient)
             .build()
+        retrofit.create(CarService::class.java)
     }
 
-    val api: Api by lazy {
-        retrofit.create(Api::class.java)
-    }*/
 
 }
