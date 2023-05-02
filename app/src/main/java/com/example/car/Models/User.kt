@@ -8,5 +8,5 @@ data class User (
     val isVerified: Boolean,
     val active: Boolean,
     val otp: String,
-    val userimage: String,
+    val image: String,
 )

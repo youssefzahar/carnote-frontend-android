@@ -16,7 +16,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.car.Api.RetrofitClient
-import com.example.car.Cars.CarsFragment
+import com.example.car.Cars.CarFragment
 import com.example.car.Cars.MyCarsFragment
 import com.example.car.Models.UserResponse
 import com.example.car.Shop.ShopFragment
@@ -55,8 +55,9 @@ class MainActivity : AppCompatActivity() {
             it.isChecked = true
             when(it.itemId){
                 R.id.profile -> replaceFragment(ProfileFragment(), it.title.toString())
-                R.id.cars -> replaceFragment(CarsFragment(), it.title.toString())
-                R.id.shop -> replaceFragment(ShopFragment(), it.title.toString())
+                R.id.cars -> replaceFragment(CarFragment(), it.title.toString())
+               // R.id.shop -> replaceFragment(ShopFragment(), it.title.toString())
+                R.id.shop -> replaceFragment(UploadImageFragment(), it.title.toString())
                 R.id.logoutbtn -> logout()
                 R.id.userCers -> replaceFragment(MyCarsFragment(), it.title.toString())
                // R.id.desactivatebtn -> DesactivateUser()
@@ -131,15 +132,15 @@ class MainActivity : AppCompatActivity() {
                     val headerView = navview.getHeaderView(0)
                     val usernameTextView = headerView.findViewById<TextView>(R.id.username)
                     val emailTextView = headerView.findViewById<TextView>(R.id.email)
-                  //  val userImageView = headerView.findViewById<ImageView>(R.id.userimage)
+                    val userImageView = headerView.findViewById<ImageView>(R.id.userimage)
 
                     usernameTextView.text = user?.username
                     emailTextView.text = user?.email
                     println("userImageView")
                     //println(userImageView)
-                  //  Glide.with(this@MainActivity).load(user?.userimage).placeholder(R.drawable.ic_google).into(userImageView)
+                    Glide.with(this@MainActivity).load(RetrofitClient.URL+"img/"+user?.image).placeholder(R.drawable.ic_google).into(userImageView)
                    // _status.value = "   First Mars image URL : ${_photos.value!!.imgSrcUrl}"
-                    println(user?.userimage)
+                    println(user?.image)
                 }
             }
 

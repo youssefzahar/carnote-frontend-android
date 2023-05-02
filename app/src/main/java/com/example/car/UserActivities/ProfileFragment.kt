@@ -22,6 +22,7 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.example.car.databinding.FragmentProfileBinding
+import com.squareup.picasso.Picasso
 
 
 class ProfileFragment : Fragment() {
@@ -61,7 +62,10 @@ class ProfileFragment : Fragment() {
                         val user = response.body()?.user
                         binding.username.text = user?.username
                         binding.email.text = user?.email
-                      //  Glide.with(requireContext()).load(user?.userimage).placeholder(R.drawable.ic_person).into(binding.userimage)
+                        Picasso.get().load(RetrofitClient.URL+"img/"+user?.image).into(binding.userimage)
+                        println("aaaaaaaaaaaaa")
+                        println(RetrofitClient.URL+"img/"+user?.image)
+                        //  Glide.with(requireContext()).load(user?.userimage).placeholder(R.drawable.ic_person).into(binding.userimage)
                     } else {
                         Toast.makeText(requireContext(), "Unable to get user info", Toast.LENGTH_SHORT).show()
                     }

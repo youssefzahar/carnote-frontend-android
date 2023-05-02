@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.car.Api.CarService
 import com.example.car.Api.RetrofitClient
+import com.example.car.Models.Car
 import com.example.car.Models.CarAdapter
 import com.example.car.Models.CarResponse
 import com.example.car.R
@@ -25,25 +26,25 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 
-class MyCarsFragment : Fragment() {
-
+class CarFragment : Fragment() {
     private lateinit var rvCars: RecyclerView
     private lateinit var carAdapter: CarAdapter
-    private lateinit var sharedPreferences: SharedPreferences
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val fragmentmanager = requireFragmentManager()
         val view = inflater.inflate(R.layout.fragment_car, container, false)
         rvCars = view.findViewById(R.id.carsforsale_recycler_view)
-        //rvCars.layoutManager = LinearLayoutManager(requireContext())
-        rvCars.layoutManager = GridLayoutManager(requireContext(),2)
-        carAdapter = CarAdapter(listOf(),fragmentmanager)
+        rvCars.layoutManager = LinearLayoutManager(requireContext())
+       // carAdapter = CarAdapter(listOf()) // create an empty adapter
+        carAdapter = CarAdapter(listOf(), fragmentmanager)
         rvCars.adapter = carAdapter
+       /* carAdapter.onItemClick = {
+            val intent = Intent(this, CarDetailsFragment::class.java)
+            intent.putE
+        }*/
         val add_car_btn = view.findViewById<Button>(R.id.add_car_button)
         add_car_btn.setOnClickListener {
             val intentAddCar = Intent(activity, AddCarActivity::class.java)
@@ -52,15 +53,10 @@ class MyCarsFragment : Fragment() {
         return view
     }
 
-
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        sharedPreferences = requireActivity().getSharedPreferences("myPrefs", Context.MODE_PRIVATE)
-        val token = sharedPreferences.getString("token", null)
-
-        RetrofitClient.carinstace.UserCars("Bearer $token").enqueue(object : Callback<CarResponse> {
+        RetrofitClient.carinstace.getAllCars().enqueue(object : Callback<CarResponse> {
             override fun onResponse(call: Call<CarResponse>, response: Response<CarResponse>) {
                 if (response.isSuccessful) {
                     val cars = response.body()?.cars

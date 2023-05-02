@@ -52,7 +52,7 @@ class AddCarActivity : AppCompatActivity() {
     }
 
     private fun checkcredentials() {
-        val intentCars = Intent(this, CarsFragment::class.java)
+        val intentCars = Intent(this, CarFragment::class.java)
         val model = modelinput.text.toString().trim()
         val marque = marqueinput.text.toString().trim()
         val puissance = puissanceinput.text.toString().trim()
