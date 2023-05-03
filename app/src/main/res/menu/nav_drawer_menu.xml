@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+            <group android:checkableBehavior="single">
+
+                <item
+                    android:id="@+id/profile"
+                    android:icon="@drawable/ic_person"
+                    android:title="@string/Profile"/>
+
+                <item
+                    android:id="@+id/shop"
+                    android:icon="@drawable/ic_shopping_cart"
+                    android:title="@string/Shop"/>
+
+                <item
+                    android:id="@+id/addproduct"
+                    android:icon="@drawable/ic_shopping_cart"
+                    android:title="add product"/>
+
+                <item
+                    android:id="@+id/myproducts"
+                    android:icon="@drawable/bag"
+                    android:title="My products"/>
+
+                <item
+                    android:id="@+id/modifyproduct"
+                    android:icon="@drawable/bag"
+                    android:title="Modify product"/>
+
+            </group>
+
+    <item android:title="@string/Logout">
+        <menu>
+            <group>
+                <item
+                    android:title="@string/Logout"
+                    android:id="@+id/logoutbtn"
+                    android:icon="@drawable/ic_lock_person"/>
+            </group>
+        </menu>
+    </item>
+<!--
+    <item android:title="Desactivate">
+        <menu>
+            <group>
+                <item
+                    android:title="Desactivate"
+                    android:id="@+id/desactivatebtn"
+                    android:icon="@drawable/ic_baseline_logout_24"/>
+            </group>
+        </menu>
+    </item> -->
+
+</menu>
