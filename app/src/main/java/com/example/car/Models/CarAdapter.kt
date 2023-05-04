@@ -41,11 +41,28 @@ class CarAdapter(var cars: List<Car>, val fragmentManager: FragmentManager) :
         }*/
         val tvModele = holder.itemView.findViewById<TextView>(R.id.showModel)
         val tvMarque = holder.itemView.findViewById<TextView>(R.id.showMarque)
+        val tvDescription = holder.itemView.findViewById<TextView>(R.id.showDescription)
+        val tvId = holder.itemView.findViewById<TextView>(R.id.showId)
+        val tvCirculationdate = holder.itemView.findViewById<TextView>(R.id.showCirculationdate)
+        val tvCarburant = holder.itemView.findViewById<TextView>(R.id.showCarburant)
+        val tvPuissance = holder.itemView.findViewById<TextView>(R.id.showPuissance)
+        tvModele.text = car.modele
+        tvMarque.text = car.marque
+        tvDescription.text = car.description
+        tvId.text = car._id
+        tvCirculationdate.text = car.date_circulation
+        tvCarburant.text = car.carburant
+        tvPuissance.text = car.puissance
+        tvPuissance.visibility = View.GONE
+        tvId.visibility = View.GONE
+        tvCirculationdate.visibility = View.GONE
+        tvDescription.visibility = View.GONE
+        tvCarburant.visibility = View.GONE
+
         Glide.with(holder.itemView.context).load(RetrofitClient.URL+"img/"+car.image).into(holder.itemView.findViewById<CircleImageView>(R.id.carImage))
        // Picasso.get().load(RetrofitClient.URL+"img/"+car.image).into(imageView)
         holder.itemView.setOnClickListener{
             navigateToCarDetails(car, fragmentManager)
-            println("navigation success hahahahahaha")
         }
     }
 
@@ -101,7 +118,7 @@ class CarAdapter(var cars: List<Car>, val fragmentManager: FragmentManager) :
         val carDetailsFragment = CarDetailsFragment()
         carDetailsFragment.arguments = bundle
         fragmentManager.beginTransaction().apply {
-            replace(R.id.cars_recycle_view_fragment, carDetailsFragment)
+            replace(R.id.frameLayout, carDetailsFragment)
             addToBackStack(null)
             commit()
         }

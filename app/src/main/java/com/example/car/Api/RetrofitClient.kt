@@ -9,7 +9,7 @@ object RetrofitClient {
 
 
     private val AUTH = "Basic"+ Base64.encodeToString("test:123456798".toByteArray(), Base64.NO_WRAP)
-    const val URL = "http://172.16.7.87:9090/"
+    const val URL = "http://192.168.1.18:9090/"
 
     private val okHttpClient = OkHttpClient.Builder()
         .addInterceptor{ chain ->
@@ -39,6 +39,15 @@ object RetrofitClient {
             .client(okHttpClient)
             .build()
         retrofit.create(CarService::class.java)
+    }
+
+    val productinstace: ProductService by lazy {
+        val retrofit = Retrofit.Builder()
+            .baseUrl(URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(okHttpClient)
+            .build()
+        retrofit.create(ProductService::class.java)
     }
 
 

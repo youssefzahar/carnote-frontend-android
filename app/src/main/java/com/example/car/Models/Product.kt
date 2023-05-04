@@ -1,23 +1,20 @@
 package com.example.car.Models
 
-import android.os.Parcel
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 import java.io.Serializable
 
 @Parcelize
-data class Car (
+
+data class Product (
     val _id: String,
-    val modele: String,
-    val marque: String,
-    val puissance: String,
-    val carburant: String,
+    val title: String,
+    val stock: Int,
+    val prix: Int,
     val description: String,
     val owned_by: String,
-    val visibility: Boolean,
-    val date_circulation: String,
     val createdAt: String,
     val updatedAt: String,
     val __v: Int,
     val image: String,
-    ) : Serializable, Parcelable
+        ): Serializable, Parcelable

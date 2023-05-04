@@ -2,8 +2,12 @@ package com.example.car.UserActivities
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -21,7 +25,7 @@ class RegisterActivity : AppCompatActivity() {
     lateinit var usernameinput : EditText
     lateinit var emailinput : EditText
     lateinit var passwordinput : EditText
-    lateinit var roleinput : EditText
+    lateinit var roleinput : Spinner
     lateinit var btnregister: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,8 +35,32 @@ class RegisterActivity : AppCompatActivity() {
         usernameinput = findViewById(R.id.username)
         emailinput = findViewById(R.id.email)
         passwordinput = findViewById(R.id.password)
-      //  roleinput = findViewById(R.id.role)
+        roleinput = findViewById(R.id.role)
         btnregister = findViewById(R.id.registerbutton)
+
+        val roles  = arrayOf("User","Shop")
+        val adapter = ArrayAdapter(this,
+            android.R.layout.simple_spinner_item, roles)
+        roleinput.adapter = adapter
+
+        roleinput.setOnItemSelectedListener(object  : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                val selectedItem  = roles[position]
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+
+        })
+
+
+
 
         btnregister.setOnClickListener{
             checkcredentials();
@@ -49,7 +77,7 @@ class RegisterActivity : AppCompatActivity() {
         val username = usernameinput.text.toString().trim()
         val email = emailinput.text.toString().trim()
         val password = passwordinput.text.toString().trim()
-      //  val role = roleinput.text.toString().trim()
+        val role = roleinput.selectedItem.toString().trim()
 
         if(username.isEmpty()){
             usernameinput.error = "Username Required"
@@ -64,8 +92,11 @@ class RegisterActivity : AppCompatActivity() {
       /*  if(role.isEmpty()) {
             roleinput.error = "Role Required"
         }*/
+
         else {
-            RetrofitClient.instance.Register(username,password,email, image = "@drawable/ic_google")
+            println("role")
+            println(role)
+            RetrofitClient.instance.Register(username,password,email, role, image = "http://localhost:9090/img/userimage.jpg")
                 .enqueue(object: Callback<UserResponse>{
                     override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
                         if(response.code() == 200)

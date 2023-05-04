@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.profile -> replaceFragment(ProfileFragment(), it.title.toString())
                 R.id.cars -> replaceFragment(CarFragment(), it.title.toString())
                // R.id.shop -> replaceFragment(ShopFragment(), it.title.toString())
-                R.id.shop -> replaceFragment(UploadImageFragment(), it.title.toString())
+                R.id.shop -> replaceFragment(ShopFragment(), it.title.toString())
                 R.id.logoutbtn -> logout()
                 R.id.userCers -> replaceFragment(MyCarsFragment(), it.title.toString())
                // R.id.desactivatebtn -> DesactivateUser()

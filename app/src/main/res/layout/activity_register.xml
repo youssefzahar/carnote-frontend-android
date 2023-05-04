@@ -88,21 +88,22 @@
                 android:layout_marginEnd="20dp"/> -->
 
     </RelativeLayout>
-<!--
-    <EditText
-        android:id="@+id/role"
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/input_bg"
-        android:hint="@string/Role"
-        android:inputType="text"
-        android:maxLines="1"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
-        android:textSize="16sp" /> -->
+
+
+        <Spinner
+            android:id="@+id/role"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/input_bg"
+            android:hint="@string/Role"
+            android:inputType="text"
+            android:maxLines="1"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:textSize="16sp"/>
 
 
     <androidx.appcompat.widget.AppCompatButton

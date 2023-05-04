@@ -60,6 +60,17 @@
                     app:layout_constraintTop_toTopOf="@+id/view" />
 
                 <TextView
+                    android:id="@+id/idcar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Id"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:textSize="21sp"
+                    app:layout_constraintStart_toStartOf="@+id/imageView3"
+                    app:layout_constraintTop_toTopOf="@+id/view" />
+
+                <TextView
                     android:id="@+id/marquecar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

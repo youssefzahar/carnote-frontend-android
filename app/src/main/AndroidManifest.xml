@@ -17,22 +17,6 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".Cars.AddCarActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".UserActivities.UpdateUserActivity"
-            android:exported="false"
-            android:label="@string/title_activity_update_user"
-            android:theme="@style/Theme.Car.NoActionBar">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".UserActivities.ForgotPassword3Activity"
             android:exported="false">
             <meta-data

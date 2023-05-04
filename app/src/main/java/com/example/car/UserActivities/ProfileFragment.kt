@@ -21,6 +21,11 @@ import android.content.SharedPreferences
 import android.widget.Button
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.car.Cars.CarFragment
+import com.example.car.Models.CarAdapter
+import com.example.car.Models.CarResponse
 import com.example.car.databinding.FragmentProfileBinding
 import com.squareup.picasso.Picasso
 
@@ -31,26 +36,26 @@ class ProfileFragment : Fragment() {
     private lateinit var sharedPreferences: SharedPreferences
     lateinit var btn_to_update: Button
 
-
-
+    private lateinit var rvCars: RecyclerView
+    private lateinit var carAdapter: CarAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_profile, container, false)
-        /*btn_to_update = view.findViewById(R.id.accountsettingsbutton)
-        btn_to_update.setOnClickListener {
-            val intent = Intent(activity, UpdateUserActivity::class.java)
-            startActivity(intent)
-        }*/
-
         binding = FragmentProfileBinding.inflate(inflater, container, false)
 
+        rvCars = binding.carsforsaleRecyclerView
+        rvCars.layoutManager = LinearLayoutManager(requireContext())
+        carAdapter = CarAdapter(listOf(), requireFragmentManager())
+        rvCars.adapter = carAdapter
+
         binding.accountsettingsbutton.setOnClickListener {
-            val intent = Intent(activity, UpdateUserActivity::class.java)
-            startActivity(intent)
+            val fragment = UpdateUserFragment()
+            val transaction = requireActivity().supportFragmentManager.beginTransaction()
+            transaction.replace(R.id.frameLayout, fragment)
+            transaction.addToBackStack(null)
+            transaction.commit()
         }
 
         sharedPreferences = requireActivity().getSharedPreferences("myPrefs", Context.MODE_PRIVATE)
@@ -63,9 +68,6 @@ class ProfileFragment : Fragment() {
                         binding.username.text = user?.username
                         binding.email.text = user?.email
                         Picasso.get().load(RetrofitClient.URL+"img/"+user?.image).into(binding.userimage)
-                        println("aaaaaaaaaaaaa")
-                        println(RetrofitClient.URL+"img/"+user?.image)
-                        //  Glide.with(requireContext()).load(user?.userimage).placeholder(R.drawable.ic_person).into(binding.userimage)
                     } else {
                         Toast.makeText(requireContext(), "Unable to get user info", Toast.LENGTH_SHORT).show()
                     }
@@ -75,10 +77,26 @@ class ProfileFragment : Fragment() {
                     Toast.makeText(requireContext(), "Unable to connect to server", Toast.LENGTH_SHORT).show()
                 }
             })
+
+            RetrofitClient.carinstace.UserCars("Bearer $token").enqueue(object : Callback<CarResponse> {
+                override fun onResponse(call: Call<CarResponse>, response: Response<CarResponse>) {
+                    if (response.isSuccessful) {
+                        val cars = response.body()?.cars
+                        if (cars != null) {
+                            carAdapter.cars = cars
+                            carAdapter.notifyDataSetChanged()
+                        }
+                    } else {
+                        Log.e(CarFragment.TAG, "Failed to get cars: ${response.code()}")
+                    }
+                }
+
+                override fun onFailure(call: Call<CarResponse>, t: Throwable) {
+                    Log.e(CarFragment.TAG, "Failed to get cars", t)
+                }
+            })
         }
 
         return binding.root
-        //return view
     }
-
 }
