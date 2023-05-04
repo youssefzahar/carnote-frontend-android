@@ -8,4 +8,7 @@ interface ProductService {
 
     @GET("product/getAllProducts")
     fun getAllProducts(): Call<ProductResponse>
+/*
+    @GET("product/getAllProducts")
+    fun getAllProducts(): Call<ProductResponse>*/
 }
