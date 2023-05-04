@@ -43,6 +43,7 @@ class LoginActivity : AppCompatActivity() {
         textView_register = findViewById(R.id.registerbtn)
         sp = getSharedPreferences("login",MODE_PRIVATE);
 
+
         if(sp.getBoolean("logged",false)){
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
@@ -97,16 +98,33 @@ class LoginActivity : AppCompatActivity() {
                     override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
                         if(response.code() == 200)
                         {
+                            val sharedPreferences = getSharedPreferences("myPrefsRole", Context.MODE_PRIVATE)
+                            val editor = sharedPreferences.edit()
+                            editor.putString("role", "User")
+                            editor.apply()
                             val token = response.body()?.token
                             saveToken(token)
                             startActivity(intentProfile)
                             //Toast.makeText(applicationContext, "new user", Toast.LENGTH_LONG).show()
                         }
+                        if(response.code() == 201)
+                        {
+                            val sharedPreferences = getSharedPreferences("myPrefsRole", Context.MODE_PRIVATE)
+                            val editor = sharedPreferences.edit()
+                            editor.putString("role", "Shop")
+                            editor.apply()
+                            val token = response.body()?.token
+                            saveToken(token)
+                            startActivity(intentProfile)
+                            /*SweetAlertDialog(this@RegisterActivity, SweetAlertDialog.SUCCESS_TYPE)
+                                .setTitleText("Welcome To CarNote")
+                                .show();  */
+                        }
                         else if(response.code()==403)
                         {
                             Toast.makeText(applicationContext, "user not exists", Toast.LENGTH_LONG).show()
                             SweetAlertDialog(this@LoginActivity, SweetAlertDialog.WARNING_TYPE)
-                                .setTitleText("User Does Not E  xists")
+                                .setTitleText("User Does Not Exists")
                                 //.setContentText("Check Your Mail For The Verification Mail")
                                 .setConfirmText("OK")
                                 .setConfirmClickListener { sDialog -> sDialog.dismissWithAnimation() }

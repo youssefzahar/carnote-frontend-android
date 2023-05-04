@@ -48,7 +48,6 @@ class ProfileFragment : Fragment() {
         rvCars = binding.carsforsaleRecyclerView
         rvCars.layoutManager = LinearLayoutManager(requireContext())
         carAdapter = CarAdapter(listOf(), requireFragmentManager())
-        rvCars.adapter = carAdapter
 
         binding.accountsettingsbutton.setOnClickListener {
             val fragment = UpdateUserFragment()
@@ -77,24 +76,27 @@ class ProfileFragment : Fragment() {
                     Toast.makeText(requireContext(), "Unable to connect to server", Toast.LENGTH_SHORT).show()
                 }
             })
-
-            RetrofitClient.carinstace.UserCars("Bearer $token").enqueue(object : Callback<CarResponse> {
-                override fun onResponse(call: Call<CarResponse>, response: Response<CarResponse>) {
-                    if (response.isSuccessful) {
-                        val cars = response.body()?.cars
-                        if (cars != null) {
-                            carAdapter.cars = cars
-                            carAdapter.notifyDataSetChanged()
+        //    if(sharedPreferences.getString("role", "") == "User") {
+                RetrofitClient.carinstace.UserCars("Bearer $token").enqueue(object : Callback<CarResponse> {
+                    override fun onResponse(call: Call<CarResponse>, response: Response<CarResponse>) {
+                        if (response.isSuccessful) {
+                            val cars = response.body()?.cars
+                            if (cars != null) {
+                                carAdapter.cars = cars
+                                carAdapter.notifyDataSetChanged()
+                            }
+                        } else {
+                            Log.e(CarFragment.TAG, "Failed to get cars: ${response.code()}")
                         }
-                    } else {
-                        Log.e(CarFragment.TAG, "Failed to get cars: ${response.code()}")
                     }
-                }
 
-                override fun onFailure(call: Call<CarResponse>, t: Throwable) {
-                    Log.e(CarFragment.TAG, "Failed to get cars", t)
-                }
-            })
+                    override fun onFailure(call: Call<CarResponse>, t: Throwable) {
+                        Log.e(CarFragment.TAG, "Failed to get cars", t)
+                    }
+                })
+         //   }
+
+
         }
 
         return binding.root

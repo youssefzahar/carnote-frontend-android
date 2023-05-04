@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -34,16 +36,27 @@ class MainActivity : AppCompatActivity() {
     lateinit var navview : NavigationView
     lateinit var textView_register: TextView
     lateinit var sp: SharedPreferences
+    lateinit var sprole: SharedPreferences
+
 
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-       // textView_register = findViewById(R.id.Actibity)
+
+        val fragment = CarFragment()
+        supportFragmentManager.beginTransaction()
+            .add(R.id.frameLayout, fragment)
+            .commit()
+
+
+
         drawerLayout = findViewById(R.id.drawerLayout)
         navview = findViewById(R.id.navview)
         sp = getSharedPreferences("login",MODE_PRIVATE);
+        sprole = getSharedPreferences("loginrole",MODE_PRIVATE);
+
 
 
         toggle = ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close )
@@ -51,15 +64,14 @@ class MainActivity : AppCompatActivity() {
         toggle.syncState()
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         navview.setNavigationItemSelectedListener {
             it.isChecked = true
             when(it.itemId){
                 R.id.profile -> replaceFragment(ProfileFragment(), it.title.toString())
                 R.id.cars -> replaceFragment(CarFragment(), it.title.toString())
-               // R.id.shop -> replaceFragment(ShopFragment(), it.title.toString())
                 R.id.shop -> replaceFragment(ShopFragment(), it.title.toString())
                 R.id.logoutbtn -> logout()
-                R.id.userCers -> replaceFragment(MyCarsFragment(), it.title.toString())
                // R.id.desactivatebtn -> DesactivateUser()
             }
             true
@@ -70,8 +82,6 @@ class MainActivity : AppCompatActivity() {
     private fun DesactivateUser() {
         val intentlogin = Intent(this, LoginActivity::class.java)
         val token = getSavedToken()
-        println("token aze :")
-        println(token)
         val call = RetrofitClient.instance.desactivateUser("Bearer $token")
 
         call.enqueue(object: Callback<UserResponse> {
@@ -110,6 +120,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun logout() {
         sp.edit().putBoolean("logged",false).apply();
+        sprole.edit().putString("role",null).apply();
         intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
     }

@@ -1,6 +1,8 @@
 package com.example.car.UserActivities
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -27,6 +29,7 @@ class RegisterActivity : AppCompatActivity() {
     lateinit var passwordinput : EditText
     lateinit var roleinput : Spinner
     lateinit var btnregister: Button
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,6 +75,13 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
+    fun saveUserRole(token: String?) {
+        val sharedPreferences = getSharedPreferences("myPrefs", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString("token", token)
+        editor.apply()
+    }
+
     private fun checkcredentials() {
         val intentlogin = Intent(this, LoginActivity::class.java)
         val username = usernameinput.text.toString().trim()
@@ -94,9 +104,7 @@ class RegisterActivity : AppCompatActivity() {
         }*/
 
         else {
-            println("role")
-            println(role)
-            RetrofitClient.instance.Register(username,password,email, role, image = "http://localhost:9090/img/userimage.jpg")
+            RetrofitClient.instance.Register(username,password,email, role, image = "userimage.jpg")
                 .enqueue(object: Callback<UserResponse>{
                     override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
                         if(response.code() == 200)
@@ -104,7 +112,8 @@ class RegisterActivity : AppCompatActivity() {
                             startActivity(intentlogin)
                             /*SweetAlertDialog(this@RegisterActivity, SweetAlertDialog.SUCCESS_TYPE)
                                 .setTitleText("Welcome To CarNote")
-                                .show();  */                      }
+                                .show();  */
+                        }
                         else if(response.code()==403)
                             //Toast.makeText(applicationContext, "user exists", Toast.LENGTH_LONG).show()
 

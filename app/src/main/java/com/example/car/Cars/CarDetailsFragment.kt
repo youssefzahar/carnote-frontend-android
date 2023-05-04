@@ -116,6 +116,7 @@ class CarDetailsFragment : Fragment() {
         cerOwner = view.findViewById(R.id.carowner)
 
         idCar.visibility = View.GONE
+        cerOwner.visibility = View.GONE
 
         // Set the text of the TextViews with the car data
         Picasso.get().load(RetrofitClient.URL + "img/" + car.image).into(CarImage)

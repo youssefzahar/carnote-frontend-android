@@ -1,5 +1,8 @@
 package com.example.car.Shop
 
+import android.content.Context
+import android.content.Context.MODE_PRIVATE
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -7,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.car.Api.RetrofitClient
@@ -24,6 +28,7 @@ import retrofit2.Response
 class ShopFragment : Fragment() {
     private lateinit var rvProducts: RecyclerView
     private lateinit var productAdapter: ProductAdapter
+    lateinit var sprole: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,10 +42,18 @@ class ShopFragment : Fragment() {
         productAdapter = ProductAdapter(listOf(), fragmentmanager)
         rvProducts.adapter = productAdapter
 
+        val sharedPreferences = requireContext().getSharedPreferences("myPrefsRole", Context.MODE_PRIVATE)
+
+
         val add_product_btn = view.findViewById<Button>(R.id.add_product_button)
         add_product_btn.setOnClickListener {
 
         }
+
+        if(sharedPreferences.getString("role", "") == "User") {
+            add_product_btn.visibility = View.GONE
+        }
+
         return view
     }
 
