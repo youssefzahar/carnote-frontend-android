@@ -21,6 +21,10 @@ import com.example.car.Api.RetrofitClient
 import com.example.car.Cars.CarFragment
 import com.example.car.Cars.MyCarsFragment
 import com.example.car.Models.UserResponse
+<<<<<<< Updated upstream
+=======
+import com.example.car.Shop.MyShopFragment
+>>>>>>> Stashed changes
 import com.example.car.Shop.ShopFragment
 import com.example.car.UserActivities.LoginActivity
 import com.example.car.UserActivities.ProfileFragment
@@ -64,13 +68,26 @@ class MainActivity : AppCompatActivity() {
         toggle.syncState()
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+<<<<<<< Updated upstream
 
+=======
+        val menuItem: MenuItem = navview.menu.findItem(R.id.myshop)
+        val sharedPreferences = getSharedPreferences("myPrefsRole", Context.MODE_PRIVATE)
+
+        if(sharedPreferences.getString("role", "") == "User") {
+            menuItem.isVisible = false
+        }
+>>>>>>> Stashed changes
         navview.setNavigationItemSelectedListener {
             it.isChecked = true
             when(it.itemId){
                 R.id.profile -> replaceFragment(ProfileFragment(), it.title.toString())
                 R.id.cars -> replaceFragment(CarFragment(), it.title.toString())
                 R.id.shop -> replaceFragment(ShopFragment(), it.title.toString())
+<<<<<<< Updated upstream
+=======
+                R.id.myshop -> replaceFragment(MyShopFragment(), it.title.toString())
+>>>>>>> Stashed changes
                 R.id.logoutbtn -> logout()
                // R.id.desactivatebtn -> DesactivateUser()
             }

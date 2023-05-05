@@ -1,4 +1,4 @@
-package com.example.car.Cars
+package com.example.car.Shop
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -12,18 +12,21 @@ import android.widget.EditText
 import android.widget.Toast
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.example.car.Api.RetrofitClient
+import com.example.car.Cars.CarFragment
 import com.example.car.Models.CarResponse
+import com.example.car.Models.ProductResponse
 import com.example.car.R
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 
-class ModifyCarFragment : Fragment() {
+class ModifyProductFragment : Fragment() {
 
     private lateinit var descriptionInput: EditText
-    private lateinit var circulationDateInput: EditText
-    private lateinit var updateCarButton: Button
+    private lateinit var stockInput: EditText
+    private lateinit var prixInput: EditText
+    private lateinit var updateProductButton: Button
     private lateinit var sharedPreferences: SharedPreferences
 
 
@@ -32,50 +35,50 @@ class ModifyCarFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val rootView = inflater.inflate(R.layout.fragment_modify_car, container, false)
-        descriptionInput = rootView.findViewById(R.id.description)
-        circulationDateInput = rootView.findViewById(R.id.circulation_date)
-        updateCarButton = rootView.findViewById(R.id.modifycarbutton)
+        val rootView = inflater.inflate(R.layout.fragment_modify_product, container, false)
+        descriptionInput = rootView.findViewById(R.id.modifyproductdescription)
+        stockInput = rootView.findViewById(R.id.modifyproductstock)
+        prixInput = rootView.findViewById(R.id.modifyproductprix)
+        updateProductButton = rootView.findViewById(R.id.modifyproductbutton)
 
 
-        updateCarButton.setOnClickListener{
-            updateCar()
+        updateProductButton.setOnClickListener{
+            updateProduct()
         }
 
         return rootView
     }
 
-    private fun updateCar() {
+    private fun updateProduct() {
         val description = descriptionInput.text.toString().trim()
-        val circulationDate = circulationDateInput.text.toString().trim()
+        val stock = stockInput.text.toString().trim()
+        val stockValue = stock.toInt()
+        val prix = prixInput.text.toString().trim()
+        val prixValue = prix.toInt()
 
-        sharedPreferences = requireActivity().getSharedPreferences("MyPrefsCar", Context.MODE_PRIVATE)
-        val carId = sharedPreferences.getString("carId", "")
+
+        sharedPreferences = requireActivity().getSharedPreferences("MyPrefsProduct", Context.MODE_PRIVATE)
+        val productId = sharedPreferences.getString("productId", "")
 
 
+        if(stock.isEmpty()) {
+            stockInput.error = " Required"
+        }
+        if(prix.isEmpty()) {
+            prixInput.error = " Required"
+        }
         if(description.isEmpty()) {
             descriptionInput.error = " Required"
         }
-        if(circulationDate.isEmpty()) {
-            circulationDateInput.error = " Required"
-        } else {
-            if (carId != null) {
-<<<<<<< Updated upstream
-=======
-                println(carId)
-                println(description)
-                println(circulationDate)
->>>>>>> Stashed changes
-                RetrofitClient.carinstace.updateCar(carId, description, circulationDate)
-                    .enqueue(object: Callback<CarResponse> {
-                        override fun onResponse(call: Call<CarResponse>, response: Response<CarResponse>) {
+         else {
+            if (productId != null) {
+
+                RetrofitClient.productinstace.updateProduct(productId, stockValue, prixValue, description)
+                    .enqueue(object: Callback<ProductResponse> {
+                        override fun onResponse(call: Call<ProductResponse>, response: Response<ProductResponse>) {
                             if(response.code() == 200) {
                                 // Refresh the car list on the parent activity
-<<<<<<< Updated upstream
-                                val fragment = CarsFragment()
-=======
-                                val fragment = CarFragment()
->>>>>>> Stashed changes
+                                val fragment = ShopFragment()
                                 val transaction = requireActivity().supportFragmentManager.beginTransaction()
                                 transaction.replace(R.id.frameLayout, fragment)
                                 transaction.addToBackStack(null)
@@ -83,7 +86,7 @@ class ModifyCarFragment : Fragment() {
 
                                 // Show success dialog
                                 SweetAlertDialog(requireContext(), SweetAlertDialog.SUCCESS_TYPE)
-                                    .setTitleText("Car Updated Successfully!")
+                                    .setTitleText("Product Updated Successfully!")
                                     .setConfirmText("OK")
                                     .setConfirmClickListener { sDialog -> sDialog.dismissWithAnimation() }
                                     .show()
@@ -91,14 +94,14 @@ class ModifyCarFragment : Fragment() {
                                 // Show error dialog
                                 SweetAlertDialog(requireContext(), SweetAlertDialog.WARNING_TYPE)
                                     .setTitleText("Error!")
-                                    .setContentText("Failed to update car.")
+                                    .setContentText("Failed to update Product.")
                                     .setConfirmText("OK")
                                     .setConfirmClickListener { sDialog -> sDialog.dismissWithAnimation() }
                                     .show()
                             }
                         }
 
-                        override fun onFailure(call: Call<CarResponse>, t: Throwable) {
+                        override fun onFailure(call: Call<ProductResponse>, t: Throwable) {
                             Toast.makeText(requireContext(), t.message , Toast.LENGTH_LONG).show()
                         }
 

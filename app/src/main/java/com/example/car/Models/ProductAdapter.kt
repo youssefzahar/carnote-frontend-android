@@ -11,6 +11,10 @@ import com.bumptech.glide.Glide
 import com.example.car.Api.RetrofitClient
 import com.example.car.Cars.CarDetailsFragment
 import com.example.car.R
+<<<<<<< Updated upstream
+=======
+import com.example.car.Shop.DetailsProductFragment
+>>>>>>> Stashed changes
 import com.example.car.databinding.CarsforsaleLayoutBinding
 import com.example.car.databinding.ProductItemLayoutBinding
 import de.hdodenhof.circleimageview.CircleImageView
@@ -47,6 +51,14 @@ class ProductAdapter(var products: List<Product>, val fragmentManager: FragmentM
         tvdescription.text = product.description
         tvownedby.text = product.owned_by
         tvId.visibility = View.GONE
+<<<<<<< Updated upstream
+=======
+        tvownedby.visibility = View.GONE
+        tvstock.visibility = View.GONE
+        tvdescription.visibility = View.GONE
+
+
+>>>>>>> Stashed changes
 
         Glide.with(holder.itemView.context).load(RetrofitClient.URL+"img/"+product.image).into(holder.itemView.findViewById<CircleImageView>(
             R.id.productImage))
@@ -65,10 +77,17 @@ class ProductAdapter(var products: List<Product>, val fragmentManager: FragmentM
         val bundle = Bundle().apply {
             putParcelable("product", product)
         }
+<<<<<<< Updated upstream
         val carDetailsFragment = CarDetailsFragment()
         carDetailsFragment.arguments = bundle
         fragmentManager.beginTransaction().apply {
             replace(R.id.frameLayout, carDetailsFragment)
+=======
+        val detailsProductFragment = DetailsProductFragment()
+        detailsProductFragment.arguments = bundle
+        fragmentManager.beginTransaction().apply {
+            replace(R.id.frameLayout, detailsProductFragment)
+>>>>>>> Stashed changes
             addToBackStack(null)
             commit()
         }

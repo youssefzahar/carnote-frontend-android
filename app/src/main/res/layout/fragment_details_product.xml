@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Cars.CarDetailsFragment"
-    android:id="@+id/details_fragment_container">
+    tools:context=".Shop.DetailsProductFragment"
+    android:id="@+id/details_product_fragment_container">
+
 
     <ScrollView
         android:layout_width="match_parent"
@@ -21,10 +22,10 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/carImage"
+                    android:id="@+id/productImage"
                     android:layout_width="429dp"
                     android:layout_height="274dp"
-                    android:src="@drawable/carimg"
+                    android:src="@drawable/download"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -34,7 +35,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="65dp"
                     android:background="#70000000"
-                    app:layout_constraintBottom_toBottomOf="@+id/carImage"
+                    app:layout_constraintBottom_toBottomOf="@+id/productImage"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
 
@@ -44,27 +45,24 @@
                     android:layout_height="32dp"
                     android:layout_marginStart="32dp"
                     android:layout_marginBottom="8dp"
-<<<<<<< Updated upstream
-                    android:src="@drawable/bell"
-=======
-                    android:src="@drawable/car_icon"
->>>>>>> Stashed changes
+                    android:src="@drawable/ic_baseline_title_24"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
 
                 <TextView
-                    android:id="@+id/modelcar"
+                    android:id="@+id/title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Model"
+                    android:layout_marginStart="48dp"
+                    android:layout_marginTop="24dp"
+                    android:text="Title"
                     android:textColor="@color/white"
-                    android:textStyle="bold"
                     android:textSize="21sp"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="@+id/imageView3"
                     app:layout_constraintTop_toTopOf="@+id/view" />
-
                 <TextView
-                    android:id="@+id/idcar"
+                    android:id="@+id/idproduct"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Id"
@@ -74,21 +72,9 @@
                     app:layout_constraintStart_toStartOf="@+id/imageView3"
                     app:layout_constraintTop_toTopOf="@+id/view" />
 
-                <TextView
-                    android:id="@+id/marquecar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="Marque"
-                    android:textSize="17sp"
-                    android:textColor="@color/white"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-                    app:layout_constraintStart_toEndOf="@+id/imageView3" />
-
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                android:id="@+id/carowner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
@@ -96,7 +82,7 @@
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                android:text="carowner" />
+                android:text="" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -108,57 +94,12 @@
                 android:layout_marginTop="16dp"
                 android:orientation="horizontal">
 
+
+
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="0dp"
-<<<<<<< Updated upstream
-                    android:layout_weight="0.3333"
-=======
-                    android:layout_weight="0.19"
->>>>>>> Stashed changes
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:id="@+id/imageView4"
-                        android:layout_width="34dp"
-                        android:layout_height="31dp"
-                        android:layout_marginStart="16dp"
-<<<<<<< Updated upstream
-                        android:src="@drawable/bell"
-=======
-                        android:src="@drawable/ic_baseline_speed_24"
->>>>>>> Stashed changes
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/puissance"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/puissance"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
-                        android:text="puissance"
-                        android:textSize="16sp"
-                        android:textColor="#575454"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <View
-                    android:id="@+id/view2"
-                    android:layout_width="1dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:layout_height="wrap_content"
-                    android:background="#C5BEBE" />
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="0dp"
-<<<<<<< Updated upstream
-                    android:layout_weight="0.3333"
-=======
-                    android:layout_weight="0.36"
->>>>>>> Stashed changes
+                    android:layout_weight="0.5"
                     android:layout_height="match_parent">
 
                     <ImageView
@@ -166,22 +107,18 @@
                         android:layout_width="34dp"
                         android:layout_height="31dp"
                         android:layout_marginStart="16dp"
-<<<<<<< Updated upstream
-                        android:src="@drawable/bell"
-=======
-                        android:src="@drawable/ic_baseline_local_gas_station_24"
->>>>>>> Stashed changes
+                        android:src="@drawable/ic_baseline_auto_stories_24"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/carburant"
+                        app:layout_constraintEnd_toStartOf="@+id/stock"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/carburant"
+                        android:id="@+id/stock"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
-                        android:text="carburant"
+                        android:text="Stock"
                         android:textSize="16sp"
                         android:textColor="#575454"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -197,11 +134,7 @@
                     android:background="#C5BEBE" />
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="0dp"
-<<<<<<< Updated upstream
-                    android:layout_weight="0.3333"
-=======
-                    android:layout_weight="0.45"
->>>>>>> Stashed changes
+                    android:layout_weight="0.5"
                     android:layout_height="match_parent">
 
                     <ImageView
@@ -209,22 +142,18 @@
                         android:layout_width="34dp"
                         android:layout_height="31dp"
                         android:layout_marginStart="16dp"
-<<<<<<< Updated upstream
-                        android:src="@drawable/bell"
-=======
-                        android:src="@drawable/ic_baseline_calendar_month_24"
->>>>>>> Stashed changes
+                        android:src="@drawable/ic_baseline_price_change_24"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/curculatiodate"
+                        app:layout_constraintEnd_toStartOf="@+id/prix"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/curculatiodate"
+                        android:id="@+id/prix"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
-                        android:text="date"
+                        android:text="Prix"
                         android:textSize="16sp"
                         android:textColor="#575454"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -245,7 +174,7 @@
                 android:text="Description" />
 
             <TextView
-                android:id="@+id/cardescription"
+                android:id="@+id/description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
@@ -253,10 +182,10 @@
                 android:layout_marginTop="8dp"
                 android:textSize="16sp"
                 android:textColor="@color/black"
-                android:text="this here is the car description" />
+                android:text="this here is the product description" />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/deleteCarBtn"
+                android:id="@+id/deleteProductBtn"
                 style="@android:style/Widget.Button"
                 android:layout_margin="32dp"
                 android:background="@drawable/inout_btn_red"
@@ -268,7 +197,7 @@
                 android:text="Delete" />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/updateCarBtn"
+                android:id="@+id/updateProductBtn"
                 style="@android:style/Widget.Button"
                 android:layout_margin="32dp"
                 android:background="@drawable/input_update_btn"
@@ -280,5 +209,6 @@
                 android:text="Update" />
         </LinearLayout>
     </ScrollView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

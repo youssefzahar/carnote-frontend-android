@@ -124,7 +124,11 @@ class AddCarFragment : Fragment() {
                     override fun onResponse(call: Call<CarResponse>, response: Response<CarResponse>) {
                         if(response.code() == 200) {
                             // Refresh the car list on the parent activity
+<<<<<<< Updated upstream
                             val fragment = CarsFragment()
+=======
+                            val fragment = CarFragment()
+>>>>>>> Stashed changes
                             val transaction = requireActivity().supportFragmentManager.beginTransaction()
                             transaction.replace(R.id.frameLayout, fragment)
                             transaction.addToBackStack(null)
