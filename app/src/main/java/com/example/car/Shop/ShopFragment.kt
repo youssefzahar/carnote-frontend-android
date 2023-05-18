@@ -11,11 +11,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-<<<<<<< Updated upstream
-=======
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
->>>>>>> Stashed changes
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.car.Api.RetrofitClient
@@ -52,15 +49,11 @@ class ShopFragment : Fragment() {
 
         val add_product_btn = view.findViewById<Button>(R.id.add_product_button)
         add_product_btn.setOnClickListener {
-<<<<<<< Updated upstream
-
-=======
             val fragment = AddProductFragment()
             val transaction = requireActivity().supportFragmentManager.beginTransaction()
             transaction.replace(R.id.frameLayout, fragment)
             transaction.addToBackStack(null)
             transaction.commit()
->>>>>>> Stashed changes
         }
 
         if(sharedPreferences.getString("role", "") == "User") {

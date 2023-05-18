@@ -44,11 +44,7 @@
                     android:layout_height="32dp"
                     android:layout_marginStart="32dp"
                     android:layout_marginBottom="8dp"
-<<<<<<< Updated upstream
-                    android:src="@drawable/bell"
-=======
                     android:src="@drawable/car_icon"
->>>>>>> Stashed changes
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
 
@@ -110,11 +106,7 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="0dp"
-<<<<<<< Updated upstream
-                    android:layout_weight="0.3333"
-=======
                     android:layout_weight="0.19"
->>>>>>> Stashed changes
                     android:layout_height="match_parent">
 
                     <ImageView
@@ -122,11 +114,7 @@
                         android:layout_width="34dp"
                         android:layout_height="31dp"
                         android:layout_marginStart="16dp"
-<<<<<<< Updated upstream
-                        android:src="@drawable/bell"
-=======
                         android:src="@drawable/ic_baseline_speed_24"
->>>>>>> Stashed changes
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/puissance"
                         app:layout_constraintStart_toStartOf="parent"
@@ -154,11 +142,7 @@
                     android:background="#C5BEBE" />
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="0dp"
-<<<<<<< Updated upstream
-                    android:layout_weight="0.3333"
-=======
                     android:layout_weight="0.36"
->>>>>>> Stashed changes
                     android:layout_height="match_parent">
 
                     <ImageView
@@ -166,11 +150,7 @@
                         android:layout_width="34dp"
                         android:layout_height="31dp"
                         android:layout_marginStart="16dp"
-<<<<<<< Updated upstream
-                        android:src="@drawable/bell"
-=======
                         android:src="@drawable/ic_baseline_local_gas_station_24"
->>>>>>> Stashed changes
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/carburant"
                         app:layout_constraintStart_toStartOf="parent"
@@ -197,11 +177,7 @@
                     android:background="#C5BEBE" />
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="0dp"
-<<<<<<< Updated upstream
-                    android:layout_weight="0.3333"
-=======
                     android:layout_weight="0.45"
->>>>>>> Stashed changes
                     android:layout_height="match_parent">
 
                     <ImageView
@@ -209,11 +185,7 @@
                         android:layout_width="34dp"
                         android:layout_height="31dp"
                         android:layout_marginStart="16dp"
-<<<<<<< Updated upstream
-                        android:src="@drawable/bell"
-=======
                         android:src="@drawable/ic_baseline_calendar_month_24"
->>>>>>> Stashed changes
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/curculatiodate"
                         app:layout_constraintStart_toStartOf="parent"

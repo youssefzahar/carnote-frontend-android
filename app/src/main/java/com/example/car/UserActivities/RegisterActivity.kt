@@ -104,11 +104,7 @@ class RegisterActivity : AppCompatActivity() {
         }*/
 
         else {
-<<<<<<< Updated upstream
-            RetrofitClient.instance.Register(username,password,email, role, image = "userimage.jpg")
-=======
             RetrofitClient.instance.Register(username,password,email, role, image = "userimage.png")
->>>>>>> Stashed changes
                 .enqueue(object: Callback<UserResponse>{
                     override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
                         if(response.code() == 200)

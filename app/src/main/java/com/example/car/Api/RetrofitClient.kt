@@ -9,11 +9,7 @@ object RetrofitClient {
 
 
     private val AUTH = "Basic"+ Base64.encodeToString("test:123456798".toByteArray(), Base64.NO_WRAP)
-<<<<<<< Updated upstream
-    const val URL = "http://192.168.1.126:9090/"
-=======
-    const val URL = "http://192.168.1.168:9090/"
->>>>>>> Stashed changes
+    const val URL = "http://192.168.100.237:9090/"
 
     private val okHttpClient = OkHttpClient.Builder()
         .addInterceptor{ chain ->

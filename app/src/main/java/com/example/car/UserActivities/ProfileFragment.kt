@@ -44,18 +44,12 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
-<<<<<<< Updated upstream
-=======
         val view = binding.root
->>>>>>> Stashed changes
 
         rvCars = binding.carsforsaleRecyclerView
         rvCars.layoutManager = LinearLayoutManager(requireContext())
         carAdapter = CarAdapter(listOf(), requireFragmentManager())
-<<<<<<< Updated upstream
-=======
         rvCars.adapter = carAdapter
->>>>>>> Stashed changes
 
         binding.accountsettingsbutton.setOnClickListener {
             val fragment = UpdateUserFragment()
@@ -84,34 +78,6 @@ class ProfileFragment : Fragment() {
                     Toast.makeText(requireContext(), "Unable to connect to server", Toast.LENGTH_SHORT).show()
                 }
             })
-<<<<<<< Updated upstream
-        //    if(sharedPreferences.getString("role", "") == "User") {
-                RetrofitClient.carinstace.UserCars("Bearer $token").enqueue(object : Callback<CarResponse> {
-                    override fun onResponse(call: Call<CarResponse>, response: Response<CarResponse>) {
-                        if (response.isSuccessful) {
-                            val cars = response.body()?.cars
-                            if (cars != null) {
-                                carAdapter.cars = cars
-                                carAdapter.notifyDataSetChanged()
-                            }
-                        } else {
-                            Log.e(CarFragment.TAG, "Failed to get cars: ${response.code()}")
-                        }
-                    }
-
-                    override fun onFailure(call: Call<CarResponse>, t: Throwable) {
-                        Log.e(CarFragment.TAG, "Failed to get cars", t)
-                    }
-                })
-         //   }
-
-
-        }
-
-        return binding.root
-    }
-}
-=======
 
             RetrofitClient.carinstace.UserCars("Bearer $token").enqueue(object : Callback<CarResponse> {
                 override fun onResponse(call: Call<CarResponse>, response: Response<CarResponse>) {
@@ -134,4 +100,3 @@ class ProfileFragment : Fragment() {
         return view
     }
 }
->>>>>>> Stashed changes

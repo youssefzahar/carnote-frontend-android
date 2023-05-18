@@ -1,15 +1,9 @@
 package com.example.car.Api
 
-<<<<<<< Updated upstream
-import com.example.car.Models.ProductResponse
-import retrofit2.Call
-import retrofit2.http.GET
-=======
 import com.example.car.Models.CarResponse
 import com.example.car.Models.ProductResponse
 import retrofit2.Call
 import retrofit2.http.*
->>>>>>> Stashed changes
 
 interface ProductService {
 
@@ -18,8 +12,6 @@ interface ProductService {
 /*
     @GET("product/getAllProducts")
     fun getAllProducts(): Call<ProductResponse>*/
-<<<<<<< Updated upstream
-=======
 
     @FormUrlEncoded
     @POST("product/addProduct")
@@ -49,5 +41,4 @@ interface ProductService {
         @Field("prix") prix:Int,
         @Field("description") description: String,
     ): Call<ProductResponse>
->>>>>>> Stashed changes
 }

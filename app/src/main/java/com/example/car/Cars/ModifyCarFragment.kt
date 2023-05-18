@@ -60,22 +60,15 @@ class ModifyCarFragment : Fragment() {
             circulationDateInput.error = " Required"
         } else {
             if (carId != null) {
-<<<<<<< Updated upstream
-=======
                 println(carId)
                 println(description)
                 println(circulationDate)
->>>>>>> Stashed changes
                 RetrofitClient.carinstace.updateCar(carId, description, circulationDate)
                     .enqueue(object: Callback<CarResponse> {
                         override fun onResponse(call: Call<CarResponse>, response: Response<CarResponse>) {
                             if(response.code() == 200) {
                                 // Refresh the car list on the parent activity
-<<<<<<< Updated upstream
-                                val fragment = CarsFragment()
-=======
                                 val fragment = CarFragment()
->>>>>>> Stashed changes
                                 val transaction = requireActivity().supportFragmentManager.beginTransaction()
                                 transaction.replace(R.id.frameLayout, fragment)
                                 transaction.addToBackStack(null)

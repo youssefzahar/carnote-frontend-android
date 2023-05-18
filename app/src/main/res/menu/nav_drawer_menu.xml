@@ -18,14 +18,11 @@
                     android:icon="@drawable/ic_shopping_cart"
                     android:title="@string/Shop"/>
 
-<<<<<<< Updated upstream
-=======
                 <item
                     android:id="@+id/myshop"
                     android:icon="@drawable/ic_shopping_cart"
                     android:title="My Shop"/>
 
->>>>>>> Stashed changes
             </group>
 
     <item android:title="@string/Logout">

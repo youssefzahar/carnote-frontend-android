@@ -80,10 +80,7 @@ class LoginActivity : AppCompatActivity() {
 
 
     private fun checkcredentials() {
-<<<<<<< Updated upstream
-=======
         println("test")
->>>>>>> Stashed changes
         val intentProfile = Intent(this, MainActivity::class.java)
         val username = usernameinput.text.toString().trim()
         val password = passwordinput.text.toString().trim()
@@ -109,11 +106,8 @@ class LoginActivity : AppCompatActivity() {
                             val token = response.body()?.token
                             saveToken(token)
                             startActivity(intentProfile)
-<<<<<<< Updated upstream
-=======
                             println("token")
                             println(token)
->>>>>>> Stashed changes
                             //Toast.makeText(applicationContext, "new user", Toast.LENGTH_LONG).show()
                         }
                         if(response.code() == 201)

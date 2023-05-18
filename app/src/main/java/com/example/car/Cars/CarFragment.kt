@@ -63,20 +63,12 @@ class CarFragment : Fragment() {
                         carAdapter.notifyDataSetChanged() // notify the adapter that the data has changed
                     }
                 } else {
-<<<<<<< Updated upstream
-                    Log.e(TAG, "Failed to get cars: ${response.code()}")
-=======
                     Log.e(TAG, "Failed to get products: ${response.code()}")
->>>>>>> Stashed changes
                 }
             }
 
             override fun onFailure(call: Call<CarResponse>, t: Throwable) {
-<<<<<<< Updated upstream
-                Log.e(TAG, "Failed to get cars", t)
-=======
                 Log.e(TAG, "Failed to get products", t)
->>>>>>> Stashed changes
             }
         })
     }
