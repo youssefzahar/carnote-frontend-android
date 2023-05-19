@@ -36,6 +36,7 @@ interface CarService {
     @FormUrlEncoded
     @POST("car/deleteCar")
     fun DeleteCar(
+        @Header("Authorization") token: String,
         @Field("_id") _id:String,
     ): Call<CarResponse>
 
@@ -43,6 +44,7 @@ interface CarService {
     @FormUrlEncoded
     @PUT("car/updatecar")
     fun updateCar(
+        @Header("Authorization") token: String,
         @Field("_id") _id:String,
         @Field("description") description:String,
         @Field("date_circulation") date_circulation:String,

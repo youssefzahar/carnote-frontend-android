@@ -23,8 +23,8 @@
 
                 <ImageView
                     android:id="@+id/productImage"
-                    android:layout_width="429dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="411dp"
+                    android:layout_height="237dp"
                     android:src="@drawable/download"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -187,7 +187,7 @@
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/deleteProductBtn"
                 style="@android:style/Widget.Button"
-                android:layout_margin="32dp"
+                android:layout_margin="10dp"
                 android:background="@drawable/inout_btn_red"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -199,7 +199,7 @@
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/updateProductBtn"
                 style="@android:style/Widget.Button"
-                android:layout_margin="32dp"
+                android:layout_margin="10dp"
                 android:background="@drawable/input_update_btn"
                 android:textSize="18sp"
                 android:textStyle="bold"

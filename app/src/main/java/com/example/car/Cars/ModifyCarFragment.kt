@@ -63,7 +63,9 @@ class ModifyCarFragment : Fragment() {
                 println(carId)
                 println(description)
                 println(circulationDate)
-                RetrofitClient.carinstace.updateCar(carId, description, circulationDate)
+                sharedPreferences = requireActivity().getSharedPreferences("myPrefs", Context.MODE_PRIVATE)
+                val token = sharedPreferences.getString("token", null)
+                RetrofitClient.carinstace.updateCar("Bearer $token", carId, description, circulationDate)
                     .enqueue(object: Callback<CarResponse> {
                         override fun onResponse(call: Call<CarResponse>, response: Response<CarResponse>) {
                             if(response.code() == 200) {
@@ -80,6 +82,11 @@ class ModifyCarFragment : Fragment() {
                                     .setConfirmText("OK")
                                     .setConfirmClickListener { sDialog -> sDialog.dismissWithAnimation() }
                                     .show()
+                            } else if(response.code() == 402)
+                            {
+                                SweetAlertDialog(requireContext(), SweetAlertDialog.WARNING_TYPE)
+                                    .setTitleText("Not Allowed")
+                                    .show();
                             } else {
                                 // Show error dialog
                                 SweetAlertDialog(requireContext(), SweetAlertDialog.WARNING_TYPE)

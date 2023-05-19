@@ -72,8 +72,9 @@ class ModifyProductFragment : Fragment() {
         }
          else {
             if (productId != null) {
-
-                RetrofitClient.productinstace.updateProduct(productId, stockValue, prixValue, description)
+                sharedPreferences = requireActivity().getSharedPreferences("myPrefs", Context.MODE_PRIVATE)
+                val token = sharedPreferences.getString("token", null)
+                RetrofitClient.productinstace.updateProduct("Bearer $token",productId, stockValue, prixValue, description)
                     .enqueue(object: Callback<ProductResponse> {
                         override fun onResponse(call: Call<ProductResponse>, response: Response<ProductResponse>) {
                             if(response.code() == 200) {
@@ -90,7 +91,12 @@ class ModifyProductFragment : Fragment() {
                                     .setConfirmText("OK")
                                     .setConfirmClickListener { sDialog -> sDialog.dismissWithAnimation() }
                                     .show()
-                            } else {
+                            } else if(response.code() == 402)
+                            {
+                                SweetAlertDialog(requireContext(), SweetAlertDialog.WARNING_TYPE)
+                                    .setTitleText("Not Allowed")
+                                    .show();
+                            }else {
                                 // Show error dialog
                                 SweetAlertDialog(requireContext(), SweetAlertDialog.WARNING_TYPE)
                                     .setTitleText("Error!")

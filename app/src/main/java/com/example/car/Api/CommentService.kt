@@ -24,4 +24,11 @@ interface CommentService {
     @GET("comment/getAll/{idProduct}")
     fun getUsersComments(@Path("idProduct") idProduct: String): Call<CommentResponse>
 
+    @FormUrlEncoded
+    @POST("comment/deleteAllComment")
+    fun DeleteProduct(
+        @Header("Authorization") token: String,
+        @Field("_id") _id:String,
+    ): Call<ProductResponse>
+
 }

@@ -9,4 +9,6 @@ data class User (
     val active: Boolean,
     val otp: String,
     val image: String,
-)
+    val _id: String,
+
+    )

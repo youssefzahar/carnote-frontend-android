@@ -19,8 +19,30 @@
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
             android:background="@color/blue"
+            app:shapeAppearanceOverlay="@style/RoundedImageView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+        <LinearLayout
+            android:id="@+id/close_button_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+           <!-- <ImageButton
+                android:id="@+id/close_button"
+                android:layout_width="45dp"
+                android:layout_height="48dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="Close Button"
+                android:src="@drawable/oip__5___1_" /> -->
+
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/layout_posted_by"
@@ -31,20 +53,22 @@
             app:layout_constraintStart_toEndOf="@id/commentor_image"
             app:layout_constraintTop_toTopOf="@id/commentor_image">
 
-            <TextView
-                android:id="@+id/commentor_name"
-                style="@style/TextAppearance.AppCompat.Body1"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:ellipsize="end"
-                android:maxLines="2"
-                android:textAlignment="textStart"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:text="Brian Marty" />
-
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/commentor_name"
+            style="@style/TextAppearance.AppCompat.Body1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="80dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textAlignment="textStart"
+            android:textColor="@color/blue"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="12dp"
+            tools:text="Brian Marty" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

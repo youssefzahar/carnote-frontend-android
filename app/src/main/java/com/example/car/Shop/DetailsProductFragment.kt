@@ -28,6 +28,7 @@ import com.example.car.Models.CommentAdapter
 import com.example.car.Models.CommentResponse
 import com.example.car.Models.Product
 import com.example.car.Models.ProductResponse
+import com.example.car.Models.User
 import com.example.car.Models.UserResponse
 import com.example.car.R
 import com.example.car.UserActivities.UpdateUserFragment
@@ -42,6 +43,7 @@ import retrofit2.Response
 class DetailsProductFragment : Fragment() {
 
     private lateinit var product: Product
+    private lateinit var user: User
     private lateinit var titleProduct: TextView
     private lateinit var stockProduct: TextView
     private lateinit var prixProduct: TextView
@@ -82,6 +84,8 @@ class DetailsProductFragment : Fragment() {
         commentbtn = view.findViewById(R.id.add_comment_button)
         descriptionInput = view.findViewById(R.id.comment_text)
 
+
+
         updateBtn.setOnClickListener{
             println("to update")
             val fragment = ModifyProductFragment()
@@ -97,7 +101,9 @@ class DetailsProductFragment : Fragment() {
 
         deleteBtn.setOnClickListener {
             println("in delete button")
-            RetrofitClient.productinstace.DeleteProduct(product._id)
+            sharedPreferences = requireActivity().getSharedPreferences("myPrefs", Context.MODE_PRIVATE)
+            val token = sharedPreferences.getString("token", null)
+            RetrofitClient.productinstace.DeleteProduct("Bearer $token",product._id)
                 .enqueue(object: Callback<ProductResponse> {
                     override fun onResponse(call: Call<ProductResponse>, response: Response<ProductResponse>) {
                         if(response.code() == 200)
@@ -107,7 +113,12 @@ class DetailsProductFragment : Fragment() {
                             transaction.replace(R.id.frameLayout, fragment)
                             transaction.addToBackStack(null)
                             transaction.commit()
-                        } else if (response.code() == 500)
+                        } else if(response.code() == 402)
+                        {
+                            SweetAlertDialog(requireContext(), SweetAlertDialog.WARNING_TYPE)
+                                .setTitleText("Not Allowed")
+                                .show();
+                        }else if (response.code() == 500)
                             SweetAlertDialog(requireContext(), SweetAlertDialog.WARNING_TYPE)
                                 .setTitleText("Error !")
                                 .setConfirmText("OK!")

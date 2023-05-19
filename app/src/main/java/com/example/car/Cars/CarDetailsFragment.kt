@@ -67,9 +67,11 @@ class CarDetailsFragment : Fragment() {
             transaction.commit()
         }
 
+        sharedPreferences = requireActivity().getSharedPreferences("myPrefs", Context.MODE_PRIVATE)
+        val token = sharedPreferences.getString("token", null)
 
         deleteBtn.setOnClickListener {
-            RetrofitClient.carinstace.DeleteCar(car._id)
+            RetrofitClient.carinstace.DeleteCar("Bearer $token",car._id)
                 .enqueue(object: Callback<CarResponse> {
                     override fun onResponse(call: Call<CarResponse>, response: Response<CarResponse>) {
                         if(response.code() == 200)
@@ -78,6 +80,11 @@ class CarDetailsFragment : Fragment() {
                             /*SweetAlertDialog(requireContext(), SweetAlertDialog.SUCCESS_TYPE)
                                 .setTitleText("Welcome To CarNote")
                                 .show();*/
+                        } else if(response.code() == 402)
+                        {
+                            SweetAlertDialog(requireContext(), SweetAlertDialog.WARNING_TYPE)
+                                .setTitleText("Not Allowed")
+                                .show();
                         } else if (response.code() == 500)
                             SweetAlertDialog(requireContext(), SweetAlertDialog.WARNING_TYPE)
                                 .setTitleText("Error !")

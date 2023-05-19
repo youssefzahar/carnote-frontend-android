@@ -20,6 +20,7 @@ import com.bumptech.glide.Glide
 import com.example.car.Api.RetrofitClient
 import com.example.car.Cars.CarFragment
 import com.example.car.Cars.MyCarsFragment
+import com.example.car.Entretien.EntretiensFragment
 import com.example.car.Models.UserResponse
 import com.example.car.Shop.MyShopFragment
 import com.example.car.Shop.ShopFragment
@@ -76,6 +77,7 @@ class MainActivity : AppCompatActivity() {
             when(it.itemId){
                 R.id.profile -> replaceFragment(ProfileFragment(), it.title.toString())
                 R.id.cars -> replaceFragment(CarFragment(), it.title.toString())
+                R.id.events -> replaceFragment(EntretiensFragment(), it.title.toString())
                 R.id.shop -> replaceFragment(ShopFragment(), it.title.toString())
                 R.id.myshop -> replaceFragment(MyShopFragment(), it.title.toString())
                 R.id.logoutbtn -> logout()

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
@@ -29,6 +30,9 @@ class CommentAdapter(var comments: List<Comment>, val fragmentManager: FragmentM
 
     override fun onBindViewHolder(holder: CommentViewHolder, position: Int) {
         val comment = comments[position]
+
+
+
         // Picasso.get().load(car.image).into(holder.imageView)
         //holder.bind(car)
 

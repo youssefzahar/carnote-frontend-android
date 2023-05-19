@@ -22,17 +22,19 @@
 
                 <ImageView
                     android:id="@+id/carImage"
-                    android:layout_width="429dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="400dp"
+                    android:layout_height="399dp"
+                    android:layout_marginTop="-60dp"
                     android:src="@drawable/carimg"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.454"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <View
                     android:id="@+id/view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="65dp"
+                    android:layout_width="449dp"
+                    android:layout_height="64dp"
                     android:background="#70000000"
                     app:layout_constraintBottom_toBottomOf="@+id/carImage"
                     app:layout_constraintEnd_toEndOf="parent"

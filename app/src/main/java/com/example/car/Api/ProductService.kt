@@ -29,6 +29,7 @@ interface ProductService {
     @FormUrlEncoded
     @POST("product/deleteProduct")
     fun DeleteProduct(
+        @Header("Authorization") token: String,
         @Field("_id") _id:String,
     ): Call<ProductResponse>
 
@@ -36,6 +37,7 @@ interface ProductService {
     @FormUrlEncoded
     @PUT("product/updateProduct")
     fun updateProduct(
+        @Header("Authorization") token: String,
         @Field("_id") _id:String,
         @Field("stock") stock:Int,
         @Field("prix") prix:Int,

@@ -10,5 +10,7 @@
     <color name="blue">#01AED8</color>
     <color name="red">#FF0000</color>
     <color name="grey">#0D174188</color>
-
+    <color name="colorPrimary">#382BEE</color>
+    <color name="colorPrimaryDark">#0641B7</color>
+    <color name="colorAccent">#80FFC4</color>
 </resources>
