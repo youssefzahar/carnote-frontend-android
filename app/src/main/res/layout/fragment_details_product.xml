@@ -24,7 +24,7 @@
                 <ImageView
                     android:id="@+id/productImage"
                     android:layout_width="429dp"
-                    android:layout_height="274dp"
+                    android:layout_height="wrap_content"
                     android:src="@drawable/download"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -207,6 +207,34 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Update" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:id="@+id/comment_recycler_view"
+                    android:layout_height="match_parent"/>
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <EditText
+                    android:id="@+id/comment_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Comment"/>
+
+                <Button
+                    android:id="@+id/add_comment_button"
+                    android:layout_margin="10dp"
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:text="Comment" />
+
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 

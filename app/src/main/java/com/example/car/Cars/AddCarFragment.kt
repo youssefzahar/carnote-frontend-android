@@ -1,10 +1,7 @@
 package com.example.car.Cars
 
-import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
-import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -21,20 +18,10 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import android.widget.ArrayAdapter
-import com.example.car.UploadImage.UploadRequestBody
-import com.example.car.UploadImage.UploadResponse
-import com.example.car.UploadImage.getFileName
-import okhttp3.MediaType
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
-import java.io.File
-import java.io.FileInputStream
-import java.io.FileOutputStream
 
 
-class AddCarFragment : Fragment(), UploadRequestBody.UploadCallback {
+class AddCarFragment : Fragment() {
 
-    private var selectedImageUri: Uri? = null
     private lateinit var modelInput: Spinner
     private lateinit var marqueInput: EditText
     private lateinit var puissanceInput: EditText
@@ -42,9 +29,8 @@ class AddCarFragment : Fragment(), UploadRequestBody.UploadCallback {
     private lateinit var descriptionInput: EditText
     private lateinit var circulationDateInput: EditText
     private lateinit var addCarButton: Button
-    private lateinit var imageview : ImageView
     private lateinit var sharedPreferences: SharedPreferences
-    private lateinit var progressbar : ProgressBar
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -59,8 +45,6 @@ class AddCarFragment : Fragment(), UploadRequestBody.UploadCallback {
         descriptionInput = rootView.findViewById(R.id.description)
         circulationDateInput = rootView.findViewById(R.id.circulation_date)
         addCarButton = rootView.findViewById(R.id.addcarbutton)
-        imageview = rootView.findViewById(R.id.image_view)
-        progressbar = rootView.findViewById(R.id.progress_bar)
 
 
         val models  = arrayOf("BMW","Ferrari","Huandai")
@@ -105,40 +89,14 @@ class AddCarFragment : Fragment(), UploadRequestBody.UploadCallback {
 
         })
 
-        imageview.setOnClickListener {
-            openImageChooser()
+        addCarButton.setOnClickListener{
+            checkCredentials()
         }
 
-        addCarButton.setOnClickListener {
-            uploadImage()
-        }
         return rootView
     }
 
-
-    private fun openImageChooser() {
-        Intent(Intent.ACTION_PICK).also {
-            it.type = "image/*"
-            val mimeTypes = arrayOf("image/jpeg", "image/png")
-            it.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes)
-            startActivityForResult(it, REQUEST_CODE_PICK_IMAGE)
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK) {
-            when (requestCode) {
-                REQUEST_CODE_PICK_IMAGE -> {
-                    selectedImageUri = data?.data
-                    imageview.setImageURI(selectedImageUri)
-                }
-            }
-        }
-    }
-
-    private fun uploadImage() {
-
+    private fun checkCredentials() {
         val model = modelInput.selectedItem.toString().trim()
         val marque = marqueInput.text.toString().trim()
         val puissance = puissanceInput.text.toString().trim()
@@ -147,8 +105,7 @@ class AddCarFragment : Fragment(), UploadRequestBody.UploadCallback {
         val description = descriptionInput.text.toString().trim()
         val circulationDate = circulationDateInput.text.toString().trim()
         sharedPreferences = requireActivity().getSharedPreferences("myPrefs", Context.MODE_PRIVATE)
-        val token1 = sharedPreferences.getString("token", null)
-        println(token1)
+        val token = sharedPreferences.getString("token", null)
 
         if(marque.isEmpty()) {
             marqueInput.error = " Required"
@@ -162,70 +119,39 @@ class AddCarFragment : Fragment(), UploadRequestBody.UploadCallback {
         if(circulationDate.isEmpty()) {
             circulationDateInput.error = " Required"
         } else {
-            println("in the else")
-        val parcelFileDescriptor =
-            requireContext().contentResolver.openFileDescriptor(selectedImageUri!!, "r", null)
-                ?: return
+            RetrofitClient.carinstace.AddCar("Bearer $token", model,marque, puissanceValue ,carburant, description, circulationDate)
+                .enqueue(object: Callback<CarResponse> {
+                    override fun onResponse(call: Call<CarResponse>, response: Response<CarResponse>) {
+                        if(response.code() == 200) {
+                            // Refresh the car list on the parent activity
+                            val fragment = CarFragment()
+                            val transaction = requireActivity().supportFragmentManager.beginTransaction()
+                            transaction.replace(R.id.frameLayout, fragment)
+                            transaction.addToBackStack(null)
+                            transaction.commit()
 
-        val inputStream = FileInputStream(parcelFileDescriptor.fileDescriptor)
-        val file = File(requireContext().cacheDir, requireContext().contentResolver.getFileName(selectedImageUri!!))
-        val outputStream = FileOutputStream(file)
-        inputStream.copyTo(outputStream)
+                            // Show success dialog
+                            SweetAlertDialog(requireContext(), SweetAlertDialog.SUCCESS_TYPE)
+                                .setTitleText("Car added successfully!")
+                                .setConfirmText("OK")
+                                .setConfirmClickListener { sDialog -> sDialog.dismissWithAnimation() }
+                                .show()
+                        } else {
+                            // Show error dialog
+                            SweetAlertDialog(requireContext(), SweetAlertDialog.WARNING_TYPE)
+                                .setTitleText("Error!")
+                                .setContentText("Failed to add car.")
+                                .setConfirmText("OK")
+                                .setConfirmClickListener { sDialog -> sDialog.dismissWithAnimation() }
+                                .show()
+                        }
+                    }
 
-        progressbar.progress = 0
+                    override fun onFailure(call: Call<CarResponse>, t: Throwable) {
+                        Toast.makeText(requireContext(), t.message , Toast.LENGTH_LONG).show()
+                    }
 
-      //  val token = RequestBody.create(MediaType.parse("text/plain"), "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MmVhOTZmMTc4N2Y4YWI2MjA1ZjMzNyIsImlhdCI6MTY4NDQyODIxNywiZXhwIjoxNjg0NTE0NjE3fQ.oHI3huQB15ievUMLAO-W-C3vPKeabWXqLnpglTH5EUY")
-        val modele = RequestBody.create(MediaType.parse("text/plain"), model)
-        val marque = RequestBody.create(MediaType.parse("text/plain"), marque)
-        val puissance = RequestBody.create(MediaType.parse("text/plain"), puissanceValue.toString())
-        val carburant = RequestBody.create(MediaType.parse("text/plain"), carburant)
-        val description = RequestBody.create(MediaType.parse("text/plain"), description)
-        val date_circulation = RequestBody.create(MediaType.parse("text/plain"), circulationDate)
-        val imageBody = UploadRequestBody(file, "image", this)
-
-            println(token1)
-           // println(token)
-
-
-            val carService = RetrofitClient.carinstace
-        val call = carService.AddCar(
-         //   token,
-            modele,
-            marque,
-            puissance,
-            carburant,
-            description,
-            date_circulation,
-            MultipartBody.Part.createFormData(
-                "image",
-                file.name,
-                imageBody
-            )
-        )
-
-        call.enqueue(object : Callback<UploadResponse> {
-            override fun onFailure(call: Call<UploadResponse>, t: Throwable) {
-                progressbar.progress = 0
-                println("failure")
-
-            }
-
-            override fun onResponse(
-                call: Call<UploadResponse>,
-                response: Response<UploadResponse>
-            ) {println("success")
-                response.body()?.let {
-                    progressbar.progress = 100
-                }
-            }
-        })
-    }
-}
-    override fun onProgressUpdate(percentage: Int) {
-        progressbar.progress = percentage
-    }
-
-    companion object {
-        const val REQUEST_CODE_PICK_IMAGE = 101
+                })
+        }
     }
 }

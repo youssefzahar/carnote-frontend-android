@@ -11,18 +11,17 @@ interface CarService {
 
 
 
-    @Multipart
+    @FormUrlEncoded
     @POST("car/addcar")
     fun AddCar(
-      //  @Header("Authorization") token: RequestBody,
-        @Part("modele") modele:RequestBody,
-        @Part("marque") marque:RequestBody,
-        @Part("puissance") puissance:RequestBody,
-        @Part("carburant") carburant:RequestBody,
-        @Part("description") description:RequestBody,
-        @Part("date_circulation") date_circulation:RequestBody,
-        @Part image: MultipartBody.Part,
-        ): Call<UploadResponse>
+        @Header("Authorization") token: String,
+        @Field("modele") modele:String,
+        @Field("marque") marque:String,
+        @Field("puissance") puissance:Int,
+        @Field("carburant") carburant:String,
+        @Field("description") description:String,
+        @Field("date_circulation") date_circulation:String,
+    ): Call<CarResponse>
 
     @GET("car/userCars")
     fun UserCars(@Header("Authorization") token: String):Call<CarResponse>
