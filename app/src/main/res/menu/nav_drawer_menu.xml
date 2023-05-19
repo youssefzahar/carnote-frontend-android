@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+            <group android:checkableBehavior="single">
+
+                <item
+                    android:id="@+id/profile"
+                    android:icon="@drawable/ic_person"
+                    android:title="@string/Profile"/>
+
+                <item
+                    android:id="@+id/cars"
+                    android:icon="@drawable/car_icon"
+                    android:title="@string/Cars"/>
+
+                <item
+                    android:id="@+id/events"
+                    android:icon="@drawable/baseline_event_24"
+                    android:title="Events"/>
+
+                <item
+                    android:id="@+id/shop"
+                    android:icon="@drawable/ic_shopping_cart"
+                    android:title="@string/Shop"/>
+
+                <item
+                    android:id="@+id/myshop"
+                    android:icon="@drawable/ic_shopping_cart"
+                    android:title="My Shop"/>
+
+            </group>
+
+    <item android:title="@string/Logout">
+        <menu>
+            <group>
+                <item
+                    android:title="@string/Logout"
+                    android:id="@+id/logoutbtn"
+                    android:icon="@drawable/ic_lock_person"/>
+            </group>
+        </menu>
+    </item>
+<!--
+    <item android:title="Desactivate">
+        <menu>
+            <group>
+                <item
+                    android:title="Desactivate"
+                    android:id="@+id/desactivatebtn"
+                    android:icon="@drawable/ic_baseline_logout_24"/>
+            </group>
+        </menu>
+    </item> -->
+
+</menu>
